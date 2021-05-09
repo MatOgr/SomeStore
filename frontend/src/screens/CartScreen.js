@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
 
 // Actions
-import { removeFromCart } from "../redux/actions/cartActions";
+import { removeFromCart, buyProduct } from "../redux/actions/cartActions";
 
 const CartScreen = () => {
   const dispatch = useDispatch();
@@ -17,9 +17,18 @@ const CartScreen = () => {
     dispatch(removeFromCart(id));
   };
 
+  const buyHandler = (id) => {
+    dispatch(buyProduct(id));   // doesn't work, mate!!!
+    dispatch(removeFromCart(id));
+  };
+
+  const buyProductsInCart = () => {
+    cartItems.map((item) => buyHandler(item.product));
+  };
+
   const clearCart = () => {
-    cartItems.map((item) => removeHandler(item.product))
-  }
+    cartItems.map((item) => removeHandler(item.product));
+  };
 
   const getCartCount = () => {
     return cartItems.reduce((qty) => 1 + qty, 0);
@@ -56,7 +65,14 @@ const CartScreen = () => {
           </p>
         </div>
         <div>
-          <button className="cancell__button" onClick={clearCart}>Cancell</button>
+          <button className="cancell__button" onClick={buyProductsInCart}>
+            Buy'em'all
+          </button>
+        </div>
+        <div>
+          <button className="cancell__button" onClick={clearCart}>
+            Cancell
+          </button>
         </div>
       </div>
     </div>

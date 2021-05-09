@@ -25,3 +25,13 @@ export const removeFromCart = (id) => (dispatch, getState) => {
 
   localStorage.setItem("cart", JSON.stringify(getState().cart.cartItems));
 };
+
+export const buyProduct = (id) => async (dispatch, getState) => {
+  const {data} = await axios.delete(`api/products/${id}`);
+  dispatch({
+    type: actionTypes.DELETE_PRODUCT,
+    payload: data._id,
+  });
+
+  localStorage.setItem("cart", JSON.stringify(getState().cart.cartItems));
+};
