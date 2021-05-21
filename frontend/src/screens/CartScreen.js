@@ -18,7 +18,7 @@ const CartScreen = () => {
   };
 
   const buyHandler = (id) => {
-    dispatch(buyProduct(id));   // doesn't work, mate!!!
+    dispatch(buyProduct(id));   // need to be fixed
     dispatch(removeFromCart(id));
   };
 
